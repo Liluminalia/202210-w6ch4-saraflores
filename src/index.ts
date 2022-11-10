@@ -9,13 +9,44 @@ const server = http.createServer((request, response) => {
 
     if (url.parse(request.url as string, true).pathname !== '/index.js') {
         response.writeHead(404, { 'Content-type': 'text/html' });
-        response.write('error 404, pagina no encontrada');
+        response.write(`<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Calculadora</title>
+    </head>
+    <body>
+        <p>ERROR 404 PAGINA NO ENCONTRADA</p>
+    </body>
+</html>`);
         response.end();
     }
 
     if (!Number(queryObject.num1) || !Number(queryObject.num2)) {
         response.writeHead(500, { 'Content-type': 'text/html' });
-        response.write('introduce solo numeros, por favor');
+        response.write(`<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Calculadora</title>
+    </head>
+    <body>
+        <header>
+            <h1>Calculadora</h1>
+        </header>
+        <main>
+            <div>
+                <p>eso no es un numero!</p>
+                
+            </div>
+        </main>
+        <footer>Sara Flores, ISDI CODERS</footer>
+    </body>
+</html>`);
         response.end();
     }
 
