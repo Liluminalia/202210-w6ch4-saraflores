@@ -1,9 +1,17 @@
 import http from 'http';
 import url from 'url';
+import { program } from 'commander';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
 const port = process.env.PORT || 3500;
+program.option('-u, --userPort <char>').option('-h, --help');
+program.parse();
+const { userPort, help } = program.opts();
+console.log({ userPort }, { help });
+if (help) {
+    console.log('Escribe -u o --userPort y el número de puerto para elegirlo');
+}
 const server = http.createServer((request, response) => {
     const queryObject = url.parse(request.url as string, true).query;
 
@@ -90,9 +98,3 @@ const server = http.createServer((request, response) => {
 });
 
 server.listen(port);
-
-// res.end('Feel free to add query parameters to the end of the url')
-
-// const querystring = require('querystring');
-// const url = 'localhost:3300/index.js?code=string&num1=6&num2=5';
-// const qs = 'num1=6&num2=5';
