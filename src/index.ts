@@ -16,8 +16,9 @@ const server = http.createServer((request, response) => {
     const queryObject = url.parse(request.url as string, true).query;
 
     if (url.parse(request.url as string, true).pathname !== '/index.js') {
-        response.writeHead(404, { 'Content-type': 'text/html' });
-        response.write(`<!DOCTYPE html>
+        return (
+            response.writeHead(404, { 'Content-type': 'text/html' }),
+            response.write(`<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
@@ -28,13 +29,15 @@ const server = http.createServer((request, response) => {
     <body>
         <p>ERROR 404 PAGINA NO ENCONTRADA</p>
     </body>
-</html>`);
-        response.end();
+</html>`),
+            response.end()
+        );
     }
 
     if (!Number(queryObject.num1) || !Number(queryObject.num2)) {
-        response.writeHead(500, { 'Content-type': 'text/html' });
-        response.write(`<!DOCTYPE html>
+        return (
+            response.writeHead(500, { 'Content-type': 'text/html' }),
+            response.write(`<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
@@ -54,8 +57,9 @@ const server = http.createServer((request, response) => {
         </main>
         <footer>Sara Flores, ISDI CODERS</footer>
     </body>
-</html>`);
-        response.end();
+</html>`),
+            response.end()
+        );
     }
 
     response.writeHead(200, { 'Content-type': 'text/html' });
